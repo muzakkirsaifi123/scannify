@@ -60,17 +60,18 @@
       vertical-align: middle;
     }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-    /* Fixed-width container for the typed word so the layout never reflows */
+    /* Width set by JS to the widest phrase's actual rendered px.
+       white-space:nowrap stops wrapping even before JS fires. */
     .typing-text {
       display: inline-block;
-      min-width: 8.5em; /* 8.5em at heading font-size covers the longest phrase */
-      text-align: left;
+      white-space: nowrap;
     }
-    /* Lock the second line of the h1 to one line-height so no vertical jump */
+    /* The second h1 line is a locked block — 1 line height, no overflow reflow */
     .hero-left h1 .typing-line {
       display: block;
       white-space: nowrap;
       overflow: hidden;
+      line-height: 1.15;
     }
     /* Hero visual */
     .hero-visual {
