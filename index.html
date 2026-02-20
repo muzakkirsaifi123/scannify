@@ -60,6 +60,18 @@
       vertical-align: middle;
     }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    /* Fixed-width container for the typed word so the layout never reflows */
+    .typing-text {
+      display: inline-block;
+      min-width: 8.5em; /* 8.5em at heading font-size covers the longest phrase */
+      text-align: left;
+    }
+    /* Lock the second line of the h1 to one line-height so no vertical jump */
+    .hero-left h1 .typing-line {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+    }
     /* Hero visual */
     .hero-visual {
       position: relative;
@@ -262,7 +274,9 @@
       <div class="section-tag">🔐 DevSecOps Platform</div>
       <h1>
         Automate Your<br/>
-        <span class="gradient-text"><span class="typing-text">Repository Security</span><span class="typing-cursor"></span></span>
+        <span class="typing-line">
+          <span class="gradient-text"><span class="typing-text">Repository Security</span><span class="typing-cursor"></span></span>
+        </span>
       </h1>
       <p>
         Scannify Hub scans every repository across GitHub, GitLab, and Bitbucket — detecting vulnerabilities, leaked secrets, and misconfigurations before they reach production.
