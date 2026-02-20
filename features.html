@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — Scannify Hub</title>
+  <meta name="description" content="Explore all features of Scannify Hub: CVE scanning, secret detection, multi-tenant management, agent mode, real-time dashboards and more." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    .tabs-container { margin-bottom: 3rem; }
+    .tab-buttons {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem; margin-bottom: 2rem;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .tab-btn.active {
+      background: rgba(59,130,246,0.1);
+      border-color: rgba(59,130,246,0.3);
+      color: var(--primary);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .feature-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .feature-detail-grid.reverse { direction: rtl; }
+    .feature-detail-grid.reverse > * { direction: ltr; }
+    .feature-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      min-height: 300px;
+    }
+    .check-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.6rem 0; font-size: 0.9rem;
+    }
+    .check-row .chk { color: var(--emerald); font-size: 1.1rem; }
+    .severity-bar-wrap { margin: 0.5rem 0; }
+    .severity-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.75rem; margin-bottom: 4px; color: var(--text-muted);
+    }
+    .bar-track { height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; transition: width 1.5s ease; }
+    .comparison-wrap { overflow-x: auto; }
+    @media (max-width: 768px) {
+      .feature-detail-grid { grid-template-columns: 1fr; }
+      .feature-detail-grid.reverse { direction: ltr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">🛡️</div>Scannify Hub</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html" class="active">Features</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="pricing.html" class="btn btn-outline">View Plans</a>
+      <a href="#" class="btn btn-primary">Start Free Trial</a>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="features.html">Features</a>
+  <a href="how-it-works.html">How It Works</a><a href="pricing.html">Pricing</a>
+  <a href="about.html">About</a>
+  <a href="#" class="btn btn-primary" style="text-align:center;">Start Free Trial</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero" style="padding-top:7rem;">
+  <div class="container">
+    <div class="section-tag">🛠️ Platform Features</div>
+    <h1>Everything you need for<br/><span class="gradient-text">end-to-end DevSecOps</span></h1>
+    <p>From automated scanning to team management — Scannify Hub covers every layer of your security workflow.</p>
+  </div>
+</div>
+
+<!-- TABS SECTION -->
+<section>
+  <div class="container">
+    <div class="tabs-container" id="features-tabs">
+      <div class="tab-buttons">
+        <button class="tab-btn active" data-tab="scanning">🔍 Security Scanning</button>
+        <button class="tab-btn" data-tab="multitenancy">🏢 Multi-Tenancy</button>
+        <button class="tab-btn" data-tab="connections">🔗 Connections</button>
+        <button class="tab-btn" data-tab="dashboard">📊 Dashboard</button>
+        <button class="tab-btn" data-tab="agent">🤖 Agent Mode</button>
+        <button class="tab-btn" data-tab="security">🔐 Data Security</button>
+      </div>
+
+      <!-- SCANNING TAB -->
+      <div class="tab-panel active" data-panel="scanning">
+        <div class="feature-detail-grid reveal">
+          <div>
+            <h2 class="section-title"><span class="gradient-text">Automated Security</span> Scanning</h2>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem;">Scannify Hub integrates industry-leading security tools to give you comprehensive vulnerability detection across all your repositories.</p>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Trivy Scanner</strong> — Container, OS, and library CVE detection</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Gitleaks</strong> — Secret and credential detection in git history</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Multi-language support</strong> — JavaScript, Python, Go, Java, Ruby, PHP and more</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Fix guidance</strong> — Every vulnerability includes the minimum safe version to upgrade to</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Scan history</strong> — Track remediation progress over time</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Queue-based async processing</strong> — Large repos scan without blocking the UI</span></div>
+          </div>
+          <div class="feature-visual">
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem;">Vulnerability Severity Distribution</div>
+            <div class="severity-bar-wrap">
+              <div class="severity-label"><span>Critical</span><span>3 issues</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:15%;background:#ef4444;"></div></div>
+            </div>
+            <div class="severity-bar-wrap">
+              <div class="severity-label"><span>High</span><span>7 issues</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:35%;background:#f59e0b;"></div></div>
+            </div>
+            <div class="severity-bar-wrap">
+              <div class="severity-label"><span>Medium</span><span>14 issues</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:70%;background:#3b82f6;"></div></div>
+            </div>
+            <div class="severity-bar-wrap">
+              <div class="severity-label"><span>Low</span><span>21 issues</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:100%;background:#10b981;"></div></div>
+            </div>
+            <div style="margin-top:1.5rem;padding:1rem;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);border-radius:10px;">
+              <div style="font-size:0.75rem;color:#34d399;font-weight:600;margin-bottom:0.5rem;">✓ Latest Scan — 2 min ago</div>
+              <div style="font-size:0.8rem;color:var(--text-muted);">CVE-2024-29041 detected in express@4.18.2<br/>Fix: upgrade to express@4.19.2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MULTI-TENANCY TAB -->
+      <div class="tab-panel" data-panel="multitenancy">
+        <div class="feature-detail-grid reverse reveal">
+          <div class="feature-visual">
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem;">Platform Hierarchy</div>
+            <div style="padding:0.75rem 1rem;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:10px;margin-bottom:0.5rem;">
+              <div style="font-size:0.8rem;font-weight:600;">👑 Platform Owner</div>
+              <div style="font-size:0.72rem;color:var(--text-muted);">Manages all companies, plans, and billing</div>
+            </div>
+            <div style="margin-left:1.5rem;">
+              <div style="padding:0.75rem 1rem;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);border-radius:10px;margin-bottom:0.5rem;">
+                <div style="font-size:0.8rem;font-weight:600;">🏢 Company A (NashTech)</div>
+                <div style="font-size:0.72rem;color:var(--text-muted);">ACTIVE · Small Team · 8 users</div>
+              </div>
+              <div style="margin-left:1.5rem;">
+                <div style="padding:0.5rem 0.75rem;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);border-radius:8px;margin-bottom:0.4rem;font-size:0.75rem;">👤 Admin · 👤 User · 👁️ Viewer</div>
+              </div>
+              <div style="padding:0.75rem 1rem;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);border-radius:10px;margin-bottom:0.5rem;">
+                <div style="font-size:0.8rem;font-weight:600;">🏢 Company B (TechCorp)</div>
+                <div style="font-size:0.72rem;color:var(--text-muted);">TRIAL · Large Team · 23 users</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h2 class="section-title"><span class="gradient-text">Multi-Tenant</span> Architecture</h2>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem;">Complete company-level isolation. Each organization operates in its own secure environment with dedicated users, repositories, and security data.</p>
+            <div class="check-row"><span class="chk">✓</span><span><strong>4-tier hierarchy</strong> — Owner → Company → Admin → User → Viewer</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>7-day free trial</strong> — Auto-provisioned on company approval</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Approval workflow</strong> — Owner reviews and approves company registrations</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Subscription management</strong> — Per-company plan, limits, and billing</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Data isolation</strong> — No cross-company data leakage by design</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Audit logs</strong> — Every action logged per company context</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECTIONS TAB -->
+      <div class="tab-panel" data-panel="connections">
+        <div class="feature-detail-grid reveal">
+          <div>
+            <h2 class="section-title"><span class="gradient-text">Universal</span> Git Connections</h2>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem;">Connect your repositories from any major git provider. Use Personal Access Tokens for direct control, or OAuth for streamlined authentication.</p>
+            <div class="check-row"><span class="chk">✓</span><span><strong>GitHub</strong> — PAT and OAuth App support</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>GitLab</strong> — Personal and group access tokens</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Bitbucket</strong> — App passwords and OAuth</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>AES-256-GCM encryption</strong> — All tokens encrypted at rest</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Token validation</strong> — Verified against provider API before saving</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Multi-tenant sharing</strong> — One admin connection serves the whole team</span></div>
+          </div>
+          <div class="feature-visual">
+            <div style="margin-bottom:1rem;font-size:0.8rem;color:var(--text-muted);">Connected Providers</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem;background:var(--bg-card2);border-radius:10px;margin-bottom:0.75rem;">
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <span style="font-size:1.3rem;">🐙</span>
+                <div><div style="font-size:0.85rem;font-weight:600;">GitHub</div><div style="font-size:0.72rem;color:var(--text-muted);">@yourteam · PAT</div></div>
+              </div>
+              <span style="background:rgba(16,185,129,0.15);color:#34d399;padding:0.2rem 0.6rem;border-radius:99px;font-size:0.72rem;font-weight:600;">✓ Connected</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem;background:var(--bg-card2);border-radius:10px;margin-bottom:0.75rem;">
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <span style="font-size:1.3rem;">🦊</span>
+                <div><div style="font-size:0.85rem;font-weight:600;">GitLab</div><div style="font-size:0.72rem;color:var(--text-muted);">@yourgroup · Token</div></div>
+              </div>
+              <span style="background:rgba(16,185,129,0.15);color:#34d399;padding:0.2rem 0.6rem;border-radius:99px;font-size:0.72rem;font-weight:600;">✓ Connected</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem;background:var(--bg-card2);border-radius:10px;margin-bottom:1rem;">
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <span style="font-size:1.3rem;">🪣</span>
+                <div><div style="font-size:0.85rem;font-weight:600;">Bitbucket</div><div style="font-size:0.72rem;color:var(--text-muted);">Not connected</div></div>
+              </div>
+              <span style="background:rgba(255,255,255,0.05);color:var(--text-muted);padding:0.2rem 0.6rem;border-radius:99px;font-size:0.72rem;font-weight:600;">+ Connect</span>
+            </div>
+            <div style="padding:0.75rem;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.2);border-radius:8px;font-size:0.75rem;color:var(--text-muted);">
+              🔐 All tokens encrypted with AES-256-GCM before storage
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD TAB -->
+      <div class="tab-panel" data-panel="dashboard">
+        <div class="feature-detail-grid reverse reveal">
+          <div class="feature-visual">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;">
+              <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:0.75rem;text-align:center;">
+                <div style="font-size:1.5rem;font-weight:800;color:#f87171;">12</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">Critical CVEs</div>
+              </div>
+              <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:0.75rem;text-align:center;">
+                <div style="font-size:1.5rem;font-weight:800;color:#34d399;">87%</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">Repos Secure</div>
+              </div>
+              <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:0.75rem;text-align:center;">
+                <div style="font-size:1.5rem;font-weight:800;color:#60a5fa;">47</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">Total Scans</div>
+              </div>
+              <div style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:0.75rem;text-align:center;">
+                <div style="font-size:1.5rem;font-weight:800;color:#a78bfa;">8</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">Team Members</div>
+              </div>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">Security Score Trend</div>
+            <div style="height:60px;background:var(--bg-card2);border-radius:8px;overflow:hidden;position:relative;">
+              <svg viewBox="0 0 300 60" style="width:100%;height:100%;" preserveAspectRatio="none">
+                <polyline points="0,55 50,45 100,40 150,30 200,20 250,15 300,10" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                <polyline points="0,55 50,45 100,40 150,30 200,20 250,15 300,10 300,60 0,60" fill="rgba(59,130,246,0.1)"/>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h2 class="section-title"><span class="gradient-text">Real-Time</span> Security Dashboard</h2>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem;">One dashboard to see your entire security posture — across all repositories, all team members, all providers.</p>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Live vulnerability counts</strong> by severity (Critical / High / Medium / Low)</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Repository security scores</strong> — track improvement over time</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Pipeline monitoring</strong> — GitHub Actions, GitLab CI, Bitbucket Pipelines</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Team metrics</strong> — who's fixing vulnerabilities, who's not</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Language breakdown</strong> — visualize your tech stack security exposure</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Contributor analytics</strong> — understand who is working on what</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AGENT TAB -->
+      <div class="tab-panel" data-panel="agent">
+        <div class="feature-detail-grid reveal">
+          <div>
+            <h2 class="section-title"><span class="gradient-text">Agent Mode</span> — Scan Locally</h2>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem;">Don't want your code leaving your servers? Run Scannify's scanning agent on your own infrastructure. Get the same results at 50% of the cost.</p>
+            <div class="check-row"><span class="chk">✓</span><span><strong>50% cost reduction</strong> — scans run on your machines, not ours</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Data sovereignty</strong> — your code never leaves your network</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Encrypted heartbeat</strong> — agent reports results securely via API key</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Same dashboard</strong> — results appear in the same beautiful UI</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Agent version tracking</strong> — always know what version is running</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Switch anytime</strong> — toggle between Cloud and Agent mode with one click</span></div>
+          </div>
+          <div class="feature-visual">
+            <div class="code-block" style="font-size:0.78rem;">
+              <span class="comment"># Install Scannify Agent</span><br/>
+              <span class="keyword">npm</span> install <span class="string">-g @scannify/agent</span><br/><br/>
+              <span class="comment"># Configure with your API key</span><br/>
+              <span class="keyword">scannify-agent</span> configure \<br/>
+              &nbsp;&nbsp;--api-key <span class="string">sk_agent_xxxx</span> \<br/>
+              &nbsp;&nbsp;--endpoint <span class="string">https://app.scannifyhub.com</span><br/><br/>
+              <span class="comment"># Start scanning</span><br/>
+              <span class="keyword">scannify-agent</span> start<br/>
+              <span class="string">✓ Agent connected · v1.2.4</span><br/>
+              <span class="string">✓ Heartbeat: every 30s</span><br/>
+              <span class="string">✓ Waiting for scan jobs...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATA SECURITY TAB -->
+      <div class="tab-panel" data-panel="security">
+        <div class="feature-detail-grid reverse reveal">
+          <div class="feature-visual">
+            <div style="text-align:center;margin-bottom:1.5rem;">
+              <div style="font-size:3rem;margin-bottom:0.5rem;">🔐</div>
+              <div style="font-size:0.9rem;font-weight:700;">AES-256-GCM Encryption</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.3rem;">Industry-standard authenticated encryption</div>
+            </div>
+            <div style="background:var(--bg-card2);border-radius:10px;padding:1rem;margin-bottom:0.75rem;font-size:0.78rem;">
+              <div style="color:var(--text-muted);margin-bottom:0.5rem;">Token stored in database:</div>
+              <div style="color:#10b981;font-family:monospace;word-break:break-all;">enc:a3f1b2c4...:d5e6f7...:8a9b0c...</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+              <div style="background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:0.75rem;text-align:center;font-size:0.78rem;">
+                <div style="font-size:1.1rem;margin-bottom:0.3rem;">🔑</div>
+                <div style="font-weight:600;">256-bit key</div>
+                <div style="color:var(--text-muted);">Military grade</div>
+              </div>
+              <div style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:0.75rem;text-align:center;font-size:0.78rem;">
+                <div style="font-size:1.1rem;margin-bottom:0.3rem;">🛡️</div>
+                <div style="font-weight:600;">Auth Tag</div>
+                <div style="color:var(--text-muted);">Tamper detection</div>
+              </div>
+              <div style="background:rgba(139,92,246,0.05);border:1px solid rgba(139,92,246,0.2);border-radius:8px;padding:0.75rem;text-align:center;font-size:0.78rem;">
+                <div style="font-size:1.1rem;margin-bottom:0.3rem;">🎲</div>
+                <div style="font-weight:600;">Random IV</div>
+                <div style="color:var(--text-muted);">Per-token unique</div>
+              </div>
+              <div style="background:rgba(6,182,212,0.05);border:1px solid rgba(6,182,212,0.2);border-radius:8px;padding:0.75rem;text-align:center;font-size:0.78rem;">
+                <div style="font-size:1.1rem;margin-bottom:0.3rem;">⏪</div>
+                <div style="font-weight:600;">Backward Compat</div>
+                <div style="color:var(--text-muted);">Zero migration</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h2 class="section-title"><span class="gradient-text">Security First</span> by Design</h2>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem;">We take the security of your credentials as seriously as you take the security of your code. Every sensitive value is protected.</p>
+            <div class="check-row"><span class="chk">✓</span><span><strong>AES-256-GCM encryption</strong> — all PATs and OAuth secrets encrypted at rest</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>bcrypt password hashing</strong> — cost factor 12, never stored in plaintext</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Session-based auth</strong> — secure cookies, server-side session validation</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Role-based access control</strong> — granular permissions at every level</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Audit logging</strong> — every privileged action recorded with context</span></div>
+            <div class="check-row"><span class="chk">✓</span><span><strong>Multi-tenant isolation</strong> — database-level tenant segregation</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL FEATURE TABLE -->
+    <div class="reveal" style="margin-top:3rem;">
+      <h2 style="text-align:center;margin-bottom:2rem;">Complete <span class="gradient-text">Feature Comparison</span></h2>
+      <div class="comparison-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Small Team</th>
+              <th>Large Team</th>
+              <th>Enterprise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>CVE Scanning (Trivy)</td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td></tr>
+            <tr><td>Secret Detection (Gitleaks)</td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td></tr>
+            <tr><td>GitHub / GitLab / Bitbucket</td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td></tr>
+            <tr><td>Security Dashboard</td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td></tr>
+            <tr><td>Team Members</td><td>10</td><td>200</td><td>Unlimited</td></tr>
+            <tr><td>Repositories</td><td>15</td><td>50</td><td>Unlimited</td></tr>
+            <tr><td>Scans per Month</td><td>100</td><td>500</td><td>Unlimited</td></tr>
+            <tr><td>Agent Mode (50% discount)</td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td></tr>
+            <tr><td>Pipeline Monitoring</td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td></tr>
+            <tr><td>Audit Logs</td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✓</span></td><td><span class="check-icon">✓</span></td></tr>
+            <tr><td>Priority Support</td><td><span class="cross-icon">✗</span></td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✓</span></td></tr>
+            <tr><td>Custom Integrations</td><td><span class="cross-icon">✗</span></td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✓</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta-box reveal">
+      <h2>Ready to secure your<br/><span class="gradient-text">entire codebase?</span></h2>
+      <p>Start your 7-day free trial. No credit card required.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-primary btn-lg">🛡️ Start Free Trial</a>
+        <a href="pricing.html" class="btn btn-ghost btn-lg">See Pricing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="margin-bottom:1rem;display:inline-flex;"><div class="logo-icon">🛡️</div>Scannify Hub</a>
+        <p>Multi-tenant DevSecOps platform for automated repository security scanning.</p>
+        <div class="social-links" style="margin-top:1.2rem;">
+          <a class="social-link" href="#">🐙</a><a class="social-link" href="#">💼</a><a class="social-link" href="#">🐦</a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Product</h4><ul><li><a href="features.html">Features</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+      <div class="footer-col"><h4>Security</h4><ul><li><a href="#">CVE Scanning</a></li><li><a href="#">Secret Detection</a></li><li><a href="#">Agent Mode</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Scannify Hub. All rights reserved.</span>
+      <span>Built with ❤️ for secure software development</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

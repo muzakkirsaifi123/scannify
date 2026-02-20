@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Scannify Hub</title>
+  <meta name="description" content="The story behind Scannify Hub — why it was built, the problems it solves, and the technology powering it." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* ---- ABOUT HERO ---- */
+    .about-hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      background: radial-gradient(ellipse 70% 50% at 50% -20%, rgba(59,130,246,0.15), transparent);
+    }
+    .about-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1.2rem; }
+    .about-hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 650px; margin: 0 auto; line-height: 1.8; }
+
+    /* ---- ORIGIN STORY ---- */
+    .story-section { padding: 5rem 0; }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .story-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    .story-grid h2 { font-size: 2.2rem; margin-bottom: 1.5rem; line-height: 1.25; }
+    .story-grid p { color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+    .story-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .story-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top right, rgba(59,130,246,0.1), transparent);
+    }
+    .timeline-mini { position: relative; padding-left: 2rem; }
+    .timeline-mini::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary), #8b5cf6, transparent);
+    }
+    .tl-item { margin-bottom: 1.8rem; position: relative; }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -1.65rem;
+      top: 0.35rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid var(--bg-dark);
+      box-shadow: 0 0 8px rgba(59,130,246,0.5);
+    }
+    .tl-year { font-size: 0.75rem; color: var(--primary); font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+    .tl-title { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
+    .tl-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ---- PROBLEM STATEMENT ---- */
+    .problem-section { padding: 5rem 0; background: rgba(255,255,255,0.015); }
+    .problem-section h2 { text-align: center; font-size: 2.2rem; margin-bottom: 1rem; }
+    .problem-section .sub { text-align: center; color: var(--text-muted); margin-bottom: 3.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .problems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .problem-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .problem-card:hover { border-color: rgba(239,68,68,0.4); transform: translateY(-4px); }
+    .problem-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+    .problem-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--text-primary); }
+    .problem-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+    .problem-card .tag {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ef4444;
+      background: rgba(239,68,68,0.12);
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+
+    /* ---- MISSION ---- */
+    .mission-section {
+      padding: 5rem 0;
+      text-align: center;
+    }
+    .mission-card {
+      background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08));
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 28px;
+      padding: 5rem 3rem;
+      position: relative;
+      overflow: hidden;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .mission-card::before, .mission-card::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.2;
+    }
+    .mission-card::before { background: var(--primary); top: -100px; left: -50px; }
+    .mission-card::after { background: #8b5cf6; bottom: -100px; right: -50px; }
+    .mission-tag {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .mission-card h2 { font-size: clamp(1.5rem, 3.5vw, 2.5rem); margin-bottom: 1.5rem; line-height: 1.3; }
+    .mission-card p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; max-width: 680px; margin: 0 auto; }
+
+    /* ---- VALUES ---- */
+    .values-section { padding: 5rem 0; }
+    .values-section h2 { text-align: center; font-size: 2.2rem; margin-bottom: 3.5rem; }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .value-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .value-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+    .value-emoji { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .value-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary); }
+    .value-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ---- TECH STACK ---- */
+    .tech-section { padding: 5rem 0; background: rgba(255,255,255,0.015); }
+    .tech-section h2 { text-align: center; font-size: 2.2rem; margin-bottom: 1rem; }
+    .tech-section .sub { text-align: center; color: var(--text-muted); margin-bottom: 3.5rem; }
+    .tech-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .tech-category {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+    }
+    .tech-category h3 {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+    .tech-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .tech-badge {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tech-badge:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ---- TEAM / DEVELOPER ---- */
+    .team-section { padding: 5rem 0; }
+    .team-section h2 { text-align: center; font-size: 2.2rem; margin-bottom: 1rem; }
+    .team-section .sub { text-align: center; color: var(--text-muted); margin-bottom: 4rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .dev-card {
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3rem;
+      display: flex;
+      gap: 2.5rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .dev-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      flex-shrink: 0;
+      border: 3px solid rgba(59,130,246,0.3);
+    }
+    .dev-info h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .dev-role { color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.8rem; }
+    .dev-bio { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.2rem; }
+    .dev-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .dev-skill {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 6px;
+      padding: 3px 10px;
+    }
+    .dev-links { display: flex; gap: 0.8rem; }
+    .dev-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .dev-link:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ---- STATS STRIP ---- */
+    .stats-strip {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat-item .stat-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+    .stat-item .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+    /* ---- ROADMAP ---- */
+    .roadmap-section { padding: 5rem 0; }
+    .roadmap-section h2 { text-align: center; font-size: 2.2rem; margin-bottom: 1rem; }
+    .roadmap-section .sub { text-align: center; color: var(--text-muted); margin-bottom: 3.5rem; }
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .roadmap-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .roadmap-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .roadmap-card.done::before { background: #10b981; }
+    .roadmap-card.in-progress::before { background: var(--primary); }
+    .roadmap-card.planned::before { background: #8b5cf6; }
+    .roadmap-card.future::before { background: rgba(255,255,255,0.1); }
+    .roadmap-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .status-done { background: rgba(16,185,129,0.15); color: #10b981; }
+    .status-progress { background: rgba(59,130,246,0.15); color: var(--primary); }
+    .status-planned { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+    .status-future { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+    .roadmap-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .roadmap-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ---- CTA ---- */
+    .about-cta {
+      padding: 5rem 0;
+      text-align: center;
+      background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(59,130,246,0.1), transparent);
+    }
+    .about-cta h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .about-cta p { color: var(--text-muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2.5rem; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 768px) {
+      .story-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .dev-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =========================================
+     NAVBAR
+========================================== -->
+<nav class="navbar">
+  <div class="container nav-container">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">⬡</span>
+      Scannify<span class="logo-accent">Hub</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-ghost">Login</a>
+      <a href="#" class="btn btn-primary">Start Free Trial</a>
+    </div>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="features.html">Features</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="#" class="btn btn-primary" style="display:inline-block;margin-top:.5rem">Start Free Trial</a></li>
+  </ul>
+</div>
+
+<!-- =========================================
+     HERO
+========================================== -->
+<section class="about-hero">
+  <div class="container">
+    <div class="reveal">
+      <span class="badge">Our Story</span>
+      <h1>Built by Developers,<br><span class="gradient-text">For Developers</span></h1>
+      <p>Scannify Hub was born from a real problem: security scanning tools were either too expensive, too complicated, or didn't support multiple code hosting providers at once. We built the platform we always wanted.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     ORIGIN STORY
+========================================== -->
+<section class="story-section">
+  <div class="container">
+    <div class="story-grid">
+
+      <div class="reveal-left">
+        <div class="story-label">The Beginning</div>
+        <h2>A Problem Hiding in Plain Sight</h2>
+        <p>Every development team I worked with had the same security story: someone would commit an AWS key to a public repo, or a critical CVE would sit unpatched for months because no one had visibility into the dependency tree across all their repositories.</p>
+        <p>Existing tools were either enterprise black boxes with six-figure contracts, open-source scripts requiring a DevOps PhD to configure, or cloud-only solutions that made sending your code offsite non-negotiable.</p>
+        <p>None of them handled the multi-tenant reality of consulting firms, agencies, or platform teams managing dozens of client repositories across GitHub, GitLab, and Bitbucket simultaneously.</p>
+        <p>So I built Scannify Hub.</p>
+      </div>
+
+      <div class="story-visual reveal-right">
+        <div class="timeline-mini">
+          <div class="tl-item">
+            <div class="tl-year">2024 Q1</div>
+            <div class="tl-title">The Idea</div>
+            <div class="tl-desc">Discovered yet another leaked API key in a client repo. Decided enough was enough — started designing the system architecture.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2024 Q2</div>
+            <div class="tl-title">Core Scanning Engine</div>
+            <div class="tl-desc">Built async scan pipeline with BullMQ, integrated Trivy and Gitleaks, connected GitHub API. First real scan ran in under 90 seconds.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2024 Q3</div>
+            <div class="tl-title">Multi-Tenancy & RBAC</div>
+            <div class="tl-desc">Designed the full Owner → Company → User hierarchy with role-based access control and company invitation flows.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2024 Q4</div>
+            <div class="tl-title">Agent Mode & Encryption</div>
+            <div class="tl-desc">Added AES-256-GCM token encryption, Agent Mode for on-prem scanning, GitLab and Bitbucket support.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2025</div>
+            <div class="tl-title">Public Launch</div>
+            <div class="tl-desc">Dynamic subscription plans, pipeline analysis, vulnerability dashboards, and enterprise features now live.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     PROBLEMS WE SOLVE
+========================================== -->
+<section class="problem-section">
+  <div class="container">
+    <h2 class="reveal">The <span class="gradient-text">Real Problems</span> We Solve</h2>
+    <p class="sub reveal">These aren't hypothetical edge cases. They're things that happen in real development teams every single week.</p>
+    <div class="problems-grid">
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">🔑</div>
+        <h3>Leaked Secrets in Repositories</h3>
+        <p>API keys, database credentials, and private tokens get committed by accident and sit undetected for weeks or months — until they're exploited.</p>
+        <span class="tag">Critical Risk</span>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">📦</div>
+        <h3>Unpatched Dependency CVEs</h3>
+        <p>Hundreds of packages in node_modules, requirements.txt, or pom.xml — and no one has visibility into which ones have known vulnerabilities right now.</p>
+        <span class="tag">High Risk</span>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">🏢</div>
+        <h3>No Multi-Tenant Control</h3>
+        <p>Agencies managing multiple client repos have no unified view. Each client is a silo, requiring separate logins and tools.</p>
+        <span class="tag">Operational Pain</span>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">🌐</div>
+        <h3>Provider Lock-In</h3>
+        <p>Tools that only work with GitHub leave teams with GitLab or Bitbucket repos completely unprotected, despite the same security risks.</p>
+        <span class="tag">Coverage Gap</span>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">💸</div>
+        <h3>Prohibitive Enterprise Pricing</h3>
+        <p>Existing enterprise security platforms cost thousands per month. Smaller teams — who need security just as much — simply can't afford them.</p>
+        <span class="tag">Access Issue</span>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">🔒</div>
+        <h3>Sending Code Off-Site</h3>
+        <p>Many cloud scanning tools require your source code to leave your infrastructure. For regulated industries, this is a non-starter.</p>
+        <span class="tag">Compliance Risk</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     MISSION
+========================================== -->
+<section class="mission-section">
+  <div class="container">
+    <div class="mission-card reveal">
+      <div class="mission-tag">Our Mission</div>
+      <h2>Make Professional Security Scanning <span class="gradient-text">Accessible to Every Team</span></h2>
+      <p>We believe that security should not be a luxury feature reserved for companies with massive DevSecOps budgets. Every team — from a two-person startup to a 500-person agency — deserves automated, multi-provider, enterprise-grade vulnerability scanning that fits their workflow, their budget, and their compliance requirements.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     STATS
+========================================== -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item reveal">
+        <span class="stat-num" data-target="50000" data-suffix="+">0</span>
+        <div class="stat-label">Vulnerabilities Detected</div>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-num" data-target="200" data-suffix="+">0</span>
+        <div class="stat-label">Repositories Scanned</div>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-num" data-target="3" data-suffix="">0</span>
+        <div class="stat-label">VCS Providers Supported</div>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-num" data-target="99" data-suffix="%">0</span>
+        <div class="stat-label">Scan Accuracy Rate</div>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-num" data-target="256" data-suffix="-bit">0</span>
+        <div class="stat-label">AES Encryption for Tokens</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     VALUES
+========================================== -->
+<section class="values-section">
+  <div class="container">
+    <h2 class="reveal">What We <span class="gradient-text">Stand For</span></h2>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <span class="value-emoji">🔒</span>
+        <h3>Security First, Always</h3>
+        <p>We encrypt every token, audit every action, and treat your data as if our own reputation depends on it — because it does.</p>
+      </div>
+      <div class="value-card reveal">
+        <span class="value-emoji">🌍</span>
+        <h3>Accessibility Over Gatekeeping</h3>
+        <p>Great security tooling shouldn't require a 6-figure contract. We price fairly, offer Agent Mode discounts, and support open-source teams.</p>
+      </div>
+      <div class="value-card reveal">
+        <span class="value-emoji">⚡</span>
+        <h3>Developer Experience Matters</h3>
+        <p>A security tool that developers dread using is a security tool that doesn't get used. We obsess over UX, speed, and clear actionable results.</p>
+      </div>
+      <div class="value-card reveal">
+        <span class="value-emoji">🧠</span>
+        <h3>Honest, Explainable Results</h3>
+        <p>No black-box scoring. We show you exactly what was scanned, what was found, where it is, and what you should do about it.</p>
+      </div>
+      <div class="value-card reveal">
+        <span class="value-emoji">🏗️</span>
+        <h3>Built to Scale</h3>
+        <p>Async job queues, multi-tenant isolation, and provider-agnostic architecture mean Scannify Hub works whether you have 5 repos or 5,000.</p>
+      </div>
+      <div class="value-card reveal">
+        <span class="value-emoji">🔓</span>
+        <h3>Your Data, Your Control</h3>
+        <p>Agent Mode means your code never leaves your servers. We give you the tools; you maintain sovereignty over where they run.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     TECH STACK
+========================================== -->
+<section class="tech-section">
+  <div class="container">
+    <h2 class="reveal">The <span class="gradient-text">Technology</span> Behind It</h2>
+    <p class="sub reveal">Modern, production-grade tools chosen for reliability, performance, and developer ergonomics.</p>
+    <div class="tech-categories">
+
+      <div class="tech-category reveal">
+        <h3>Frontend</h3>
+        <div class="tech-list">
+          <span class="tech-badge">Next.js 15</span>
+          <span class="tech-badge">React 19</span>
+          <span class="tech-badge">TypeScript</span>
+          <span class="tech-badge">Tailwind CSS</span>
+          <span class="tech-badge">shadcn/ui</span>
+          <span class="tech-badge">Lucide Icons</span>
+        </div>
+      </div>
+
+      <div class="tech-category reveal">
+        <h3>Backend & API</h3>
+        <div class="tech-list">
+          <span class="tech-badge">Next.js App Router</span>
+          <span class="tech-badge">NextAuth.js</span>
+          <span class="tech-badge">Prisma ORM</span>
+          <span class="tech-badge">BullMQ</span>
+          <span class="tech-badge">Redis</span>
+          <span class="tech-badge">Node.js Crypto</span>
+        </div>
+      </div>
+
+      <div class="tech-category reveal">
+        <h3>Database & Storage</h3>
+        <div class="tech-list">
+          <span class="tech-badge">PostgreSQL</span>
+          <span class="tech-badge">Neon Serverless</span>
+          <span class="tech-badge">Upstash Redis</span>
+          <span class="tech-badge">AES-256-GCM</span>
+        </div>
+      </div>
+
+      <div class="tech-category reveal">
+        <h3>Security Scanners</h3>
+        <div class="tech-list">
+          <span class="tech-badge">Trivy</span>
+          <span class="tech-badge">Gitleaks</span>
+          <span class="tech-badge">Semgrep</span>
+          <span class="tech-badge">SBOM Generation</span>
+          <span class="tech-badge">CVE Database</span>
+        </div>
+      </div>
+
+      <div class="tech-category reveal">
+        <h3>Provider APIs</h3>
+        <div class="tech-list">
+          <span class="tech-badge">GitHub REST API</span>
+          <span class="tech-badge">GitLab API v4</span>
+          <span class="tech-badge">Bitbucket API 2.0</span>
+          <span class="tech-badge">OAuth 2.0</span>
+          <span class="tech-badge">PAT Auth</span>
+        </div>
+      </div>
+
+      <div class="tech-category reveal">
+        <h3>Deployment</h3>
+        <div class="tech-list">
+          <span class="tech-badge">Vercel</span>
+          <span class="tech-badge">Docker</span>
+          <span class="tech-badge">GitHub Actions</span>
+          <span class="tech-badge">Neon Branching</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     DEVELOPER / TEAM
+========================================== -->
+<section class="team-section">
+  <div class="container">
+    <h2 class="reveal">The <span class="gradient-text">Builder</span></h2>
+    <p class="sub reveal">A lean, focused project built with purpose — not by a committee.</p>
+    <div class="dev-card reveal">
+      <div class="dev-avatar">👨‍💻</div>
+      <div class="dev-info">
+        <h3>Saifi</h3>
+        <div class="dev-role">Full-Stack Developer · Security Engineering Enthusiast</div>
+        <p class="dev-bio">Full-stack developer with a deep interest in DevSecOps, multi-tenant SaaS architecture, and building tools that solve real problems for engineering teams. Built Scannify Hub after experiencing firsthand how fragmented and inaccessible security tooling was for small-to-mid-sized development shops.</p>
+        <p class="dev-bio">Currently building and iterating based on real feedback. If you have feature requests, found a bug, or want to partner — reach out directly.</p>
+        <div class="dev-skills">
+          <span class="dev-skill">Next.js</span>
+          <span class="dev-skill">TypeScript</span>
+          <span class="dev-skill">PostgreSQL</span>
+          <span class="dev-skill">DevSecOps</span>
+          <span class="dev-skill">Multi-Tenant SaaS</span>
+          <span class="dev-skill">Security Engineering</span>
+        </div>
+        <div class="dev-links">
+          <a href="#" class="dev-link">GitHub</a>
+          <a href="#" class="dev-link">LinkedIn</a>
+          <a href="mailto:hello@scannifyhub.com" class="dev-link">Email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     ROADMAP
+========================================== -->
+<section class="roadmap-section">
+  <div class="container">
+    <h2 class="reveal">What's <span class="gradient-text">Coming Next</span></h2>
+    <p class="sub reveal">Scannify Hub is actively developed. Here's what's shipped and what's on the roadmap.</p>
+    <div class="roadmap-grid">
+
+      <div class="roadmap-card done reveal">
+        <div class="roadmap-status status-done">✔ Shipped</div>
+        <h3>Multi-Provider Scanning</h3>
+        <p>GitHub, GitLab, and Bitbucket support via PAT and OAuth — all from one dashboard.</p>
+      </div>
+
+      <div class="roadmap-card done reveal">
+        <div class="roadmap-status status-done">✔ Shipped</div>
+        <h3>AES-256-GCM Token Encryption</h3>
+        <p>All PAT and OAuth tokens encrypted at rest with authenticated encryption. Zero plaintext storage.</p>
+      </div>
+
+      <div class="roadmap-card done reveal">
+        <div class="roadmap-status status-done">✔ Shipped</div>
+        <h3>Agent Mode (50% Discount)</h3>
+        <p>Run the scanner on your own infrastructure with an auto-generated API key. Your code, your servers.</p>
+      </div>
+
+      <div class="roadmap-card done reveal">
+        <div class="roadmap-status status-done">✔ Shipped</div>
+        <h3>Dynamic Subscription Plans</h3>
+        <p>Owner-managed plans with visibility controls — assign specific plans to specific companies.</p>
+      </div>
+
+      <div class="roadmap-card in-progress reveal">
+        <div class="roadmap-status status-progress">⚡ In Progress</div>
+        <h3>Semgrep SAST Integration</h3>
+        <p>Static application security testing — catch logic flaws and injection vulnerabilities in source code.</p>
+      </div>
+
+      <div class="roadmap-card in-progress reveal">
+        <div class="roadmap-status status-progress">⚡ In Progress</div>
+        <h3>Webhook Notifications</h3>
+        <p>Push scan results to Slack, Discord, PagerDuty, or your own endpoint in real-time.</p>
+      </div>
+
+      <div class="roadmap-card planned reveal">
+        <div class="roadmap-status status-planned">🔮 Planned</div>
+        <h3>Scheduled Scan Policies</h3>
+        <p>Cron-based scanning on a custom schedule per repository, with configurable severity thresholds.</p>
+      </div>
+
+      <div class="roadmap-card planned reveal">
+        <div class="roadmap-status status-planned">🔮 Planned</div>
+        <h3>Compliance Report Export</h3>
+        <p>Generate SOC 2, PCI-DSS, and ISO 27001-ready vulnerability reports with one click.</p>
+      </div>
+
+      <div class="roadmap-card future reveal">
+        <div class="roadmap-status status-future">💭 Exploring</div>
+        <h3>AI-Powered Fix Suggestions</h3>
+        <p>Claude-powered remediation guidance — not just "what's broken" but "here's how to fix it" with code snippets.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     CTA
+========================================== -->
+<section class="about-cta">
+  <div class="container">
+    <div class="reveal">
+      <h2>Ready to <span class="gradient-text">Secure Your Repos?</span></h2>
+      <p>Join developers and teams who are finally getting full visibility into their repository security.</p>
+      <div class="cta-btns">
+        <a href="#" class="btn btn-primary btn-lg">Start Your Free Trial</a>
+        <a href="features.html" class="btn btn-outline btn-lg">Explore Features</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     FOOTER
+========================================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" style="font-size:1.4rem">
+          <span class="logo-icon">⬡</span>
+          Scannify<span class="logo-accent">Hub</span>
+        </a>
+        <p style="color:var(--text-muted);margin-top:1rem;font-size:0.9rem;line-height:1.6">Enterprise-grade security scanning for modern DevSecOps teams. Multi-tenant, multi-provider, always scanning.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">GH</a>
+          <a href="#" class="social-link">LI</a>
+          <a href="#" class="social-link">TW</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="#">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">GDPR</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Scannify Hub. Built with ❤️ for developers who care about security.</p>
+      <p style="margin-top:0.25rem;font-size:0.8rem;color:var(--text-muted)">AES-256-GCM encrypted · Zero plaintext token storage · SOC2 ready</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scannify Hub — DevSecOps Security Platform</title>
+  <meta name="description" content="Scannify Hub is a multi-tenant DevSecOps platform that scans your GitHub, GitLab and Bitbucket repositories for vulnerabilities, secrets, and misconfigurations — automatically." />
+  <meta property="og:title" content="Scannify Hub — DevSecOps Security Platform" />
+  <meta property="og:description" content="Automated repository security scanning for your entire engineering team. Detect CVEs, secrets, and misconfigurations before they hit production." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ---- HERO ---- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 5rem;
+      overflow: hidden;
+    }
+    #particle-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-left h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); margin-bottom: 1.5rem; }
+    .hero-left p { color: var(--text-muted); font-size: 1.15rem; margin-bottom: 2rem; max-width: 500px; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .hero-trust { display: flex; align-items: center; gap: 0.75rem; color: var(--text-muted); font-size: 0.85rem; }
+    .hero-trust .dots { display: flex; gap: -4px; }
+    .hero-trust .dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid var(--bg-dark);
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700;
+      margin-left: -6px;
+    }
+    .hero-trust .dot:first-child { margin-left: 0; }
+    .typing-cursor {
+      display: inline-block;
+      width: 3px; height: 1em;
+      background: var(--primary);
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+    }
+    .dashboard-preview {
+      background: var(--bg-card);
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,130,246,0.1);
+    }
+    .dash-header {
+      padding: 0.75rem 1rem;
+      background: #0a0f1a;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .dash-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+    }
+    .dash-content { padding: 1.5rem; }
+    .scan-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: var(--bg-card2);
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      font-size: 0.8rem;
+    }
+    .scan-row .repo { font-weight: 600; }
+    .scan-row .status { padding: 0.2rem 0.6rem; border-radius: 99px; font-size: 0.72rem; font-weight: 600; }
+    .status-ok { background: rgba(16,185,129,0.15); color: #34d399; }
+    .status-warn { background: rgba(239,68,68,0.15); color: #f87171; }
+    .status-running { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .vuln-bar { height: 4px; background: var(--bg-card); border-radius: 2px; overflow: hidden; margin-top: 0.75rem; }
+    .vuln-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+    .floating-badge {
+      position: absolute;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .floating-badge.top-right {
+      top: -20px; right: -20px;
+      border-color: rgba(16,185,129,0.3);
+    }
+    .floating-badge.bottom-left {
+      bottom: -20px; left: -20px;
+      border-color: rgba(239,68,68,0.3);
+    }
+
+    /* Stats strip */
+    .stats-strip {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 0;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; }
+    .stats-grid > div { padding: 1rem; border-right: 1px solid var(--border); }
+    .stats-grid > div:last-child { border-right: none; }
+    .stat-label { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.3rem; }
+
+    /* Problem section */
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .problem-points { list-style: none; }
+    .problem-points li {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1rem 0; border-bottom: 1px solid var(--border);
+    }
+    .problem-points li:last-child { border-bottom: none; }
+    .problem-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .problem-points li h4 { margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .problem-points li p { color: var(--text-muted); font-size: 0.85rem; }
+
+    /* Features grid */
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      border-color: rgba(59,130,246,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .feature-card .icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .feature-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .feature-card p { color: var(--text-muted); font-size: 0.875rem; }
+
+    /* Provider logos */
+    .providers { display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+    .provider-item {
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: var(--text-muted); font-size: 0.85rem; font-weight: 500;
+    }
+    .provider-icon {
+      width: 56px; height: 56px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      transition: all 0.2s;
+    }
+    .provider-icon:hover { border-color: var(--primary); transform: scale(1.1); }
+
+    /* How it works mini */
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .step-card {
+      text-align: center; padding: 2rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+    .step-num {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--gradient);
+      color: white;
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem;
+    }
+    .step-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .step-card p { color: var(--text-muted); font-size: 0.875rem; }
+
+    @media (max-width: 768px) {
+      .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-visual { display: none; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid > div { border-right: none; border-bottom: 1px solid var(--border); }
+      .problem-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">🛡️</div>
+      Scannify Hub
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="pricing.html" class="btn btn-outline">View Plans</a>
+      <a href="#" class="btn btn-primary">Start Free Trial</a>
+    </div>
+    <div class="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="features.html">Features</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="about.html">About</a>
+  <a href="#" class="btn btn-primary" style="text-align:center;">Start Free Trial</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="particle-canvas"></canvas>
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="section-tag">🔐 DevSecOps Platform</div>
+      <h1>
+        Automate Your<br/>
+        <span class="gradient-text"><span class="typing-text">Repository Security</span><span class="typing-cursor"></span></span>
+      </h1>
+      <p>
+        Scannify Hub scans every repository across GitHub, GitLab, and Bitbucket — detecting vulnerabilities, leaked secrets, and misconfigurations before they reach production.
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary btn-lg">🚀 Start Free Trial</a>
+        <a href="how-it-works.html" class="btn btn-ghost btn-lg">See How It Works →</a>
+      </div>
+      <div class="hero-trust">
+        <div class="dots">
+          <div class="dot">SA</div>
+          <div class="dot">MK</div>
+          <div class="dot">JR</div>
+          <div class="dot">+</div>
+        </div>
+        <span>Trusted by engineering teams who ship securely</span>
+      </div>
+    </div>
+
+    <div class="hero-visual animate-float">
+      <div class="floating-badge top-right animate-pulse-glow">
+        ✅ <strong>12 vulnerabilities fixed</strong><br/>
+        <span style="color:var(--text-muted);font-size:0.75rem;">last scan: 2 min ago</span>
+      </div>
+      <div class="dashboard-preview">
+        <div class="dash-header">
+          <div class="dash-dot" style="background:#ef4444"></div>
+          <div class="dash-dot" style="background:#f59e0b"></div>
+          <div class="dash-dot" style="background:#10b981"></div>
+          <span style="color:var(--text-muted);font-size:0.75rem;margin-left:0.5rem;">scannify-hub — Security Dashboard</span>
+        </div>
+        <div class="dash-content">
+          <div style="display:flex;justify-content:space-between;margin-bottom:1rem;font-size:0.8rem;color:var(--text-muted);">
+            <span>Repository Scans</span>
+            <span style="color:var(--primary);">View All →</span>
+          </div>
+          <div class="scan-row">
+            <div>
+              <div class="repo">🐙 org/frontend-app</div>
+              <div style="color:var(--text-muted);font-size:0.72rem;margin-top:2px;">GitHub · 3 critical CVEs</div>
+            </div>
+            <span class="status status-warn">⚠ 3 Critical</span>
+          </div>
+          <div class="scan-row">
+            <div>
+              <div class="repo">🦊 team/api-service</div>
+              <div style="color:var(--text-muted);font-size:0.72rem;margin-top:2px;">GitLab · Scanning...</div>
+            </div>
+            <span class="status status-running">⟳ Running</span>
+          </div>
+          <div class="scan-row">
+            <div>
+              <div class="repo">🪣 workspace/auth-lib</div>
+              <div style="color:var(--text-muted);font-size:0.72rem;margin-top:2px;">Bitbucket · Clean</div>
+            </div>
+            <span class="status status-ok">✓ Secure</span>
+          </div>
+          <div style="margin-top:1.2rem;font-size:0.78rem;color:var(--text-muted);">Vulnerability Breakdown</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-top:0.5rem;text-align:center;">
+            <div style="background:rgba(239,68,68,0.1);border-radius:8px;padding:0.5rem;">
+              <div style="color:#f87171;font-weight:700;font-size:1rem;">3</div>
+              <div style="font-size:0.7rem;color:var(--text-muted);">Critical</div>
+            </div>
+            <div style="background:rgba(245,158,11,0.1);border-radius:8px;padding:0.5rem;">
+              <div style="color:#fbbf24;font-weight:700;font-size:1rem;">7</div>
+              <div style="font-size:0.7rem;color:var(--text-muted);">High</div>
+            </div>
+            <div style="background:rgba(59,130,246,0.1);border-radius:8px;padding:0.5rem;">
+              <div style="color:#60a5fa;font-weight:700;font-size:1rem;">14</div>
+              <div style="font-size:0.7rem;color:var(--text-muted);">Medium</div>
+            </div>
+            <div style="background:rgba(16,185,129,0.1);border-radius:8px;padding:0.5rem;">
+              <div style="color:#34d399;font-weight:700;font-size:1rem;">21</div>
+              <div style="font-size:0.7rem;color:var(--text-muted);">Low</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="floating-badge bottom-left">
+        🔑 <strong>Secret Detected!</strong><br/>
+        <span style="color:#f87171;font-size:0.75rem;">AWS key exposed in .env</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-number"><span data-target="50000" data-suffix="+">0</span></div>
+        <div class="stat-label">Vulnerabilities Detected</div>
+      </div>
+      <div>
+        <div class="stat-number"><span data-target="200" data-suffix="+">0</span></div>
+        <div class="stat-label">Repositories Scanned</div>
+      </div>
+      <div>
+        <div class="stat-number"><span data-target="3">0</span></div>
+        <div class="stat-label">Git Providers Supported</div>
+      </div>
+      <div>
+        <div class="stat-number"><span data-target="99" data-suffix="%">0</span></div>
+        <div class="stat-label">Detection Accuracy</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM SECTION -->
+<section>
+  <div class="container">
+    <div class="problem-grid">
+      <div class="reveal-left">
+        <div class="section-tag">😰 The Problem</div>
+        <h2 class="section-title">Security is always<br/><span class="gradient-text">an afterthought</span></h2>
+        <p class="section-sub" style="margin-bottom:2rem;">Development teams move fast. Security reviews are slow. The gap in between is where breaches happen.</p>
+        <ul class="problem-points">
+          <li>
+            <div class="problem-icon" style="background:rgba(239,68,68,0.1);">🔓</div>
+            <div>
+              <h4>Vulnerable Dependencies Go Unnoticed</h4>
+              <p>Packages with known CVEs stay in production for months because no one is systematically checking.</p>
+            </div>
+          </li>
+          <li>
+            <div class="problem-icon" style="background:rgba(245,158,11,0.1);">🔑</div>
+            <div>
+              <h4>Secrets Leaked in Code</h4>
+              <p>API keys, passwords, and tokens accidentally committed to repositories create critical exposure.</p>
+            </div>
+          </li>
+          <li>
+            <div class="problem-icon" style="background:rgba(139,92,246,0.1);">👥</div>
+            <div>
+              <h4>No Central Security Visibility</h4>
+              <p>Each team uses different tools. There's no single dashboard for leadership to see the real security posture.</p>
+            </div>
+          </li>
+          <li>
+            <div class="problem-icon" style="background:rgba(59,130,246,0.1);">📊</div>
+            <div>
+              <h4>Manual Reviews Don't Scale</h4>
+              <p>As teams grow, manual code reviews become bottlenecks and security debt accumulates silently.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="reveal-right">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:2rem;">
+          <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.5rem;text-align:center;">
+            🔴 Without Scannify Hub — Typical Security Posture
+          </div>
+          <div style="space-y:1rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);border-radius:10px;margin-bottom:0.75rem;">
+              <span style="font-size:0.85rem;">CVE-2024-3094 <span style="color:#f87171;font-size:0.75rem;">(Critical)</span></span>
+              <span style="color:#f87171;font-size:0.75rem;">Undetected 47 days</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.2);border-radius:10px;margin-bottom:0.75rem;">
+              <span style="font-size:0.85rem;">AWS_SECRET_KEY in .env <span style="color:#fbbf24;font-size:0.75rem;">(High)</span></span>
+              <span style="color:#fbbf24;font-size:0.75rem;">Committed 12 days</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);border-radius:10px;margin-bottom:1.5rem;">
+              <span style="font-size:0.85rem;">SQL Injection in /api/users <span style="color:#f87171;font-size:0.75rem;">(Critical)</span></span>
+              <span style="color:#f87171;font-size:0.75rem;">In production 30 days</span>
+            </div>
+            <div style="text-align:center;color:var(--text-muted);font-size:0.8rem;padding:1rem;background:rgba(239,68,68,0.05);border-radius:10px;border:1px dashed rgba(239,68,68,0.3);">
+              💸 Average breach cost: <strong style="color:#f87171;">$4.45 million</strong><br/>
+              <span style="font-size:0.75rem;">IBM Cost of a Data Breach Report 2023</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION / FEATURES OVERVIEW -->
+<section style="background:linear-gradient(180deg, transparent, rgba(59,130,246,0.03), transparent);">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-tag">✅ The Solution</div>
+      <h2 class="section-title">Everything you need for<br/><span class="gradient-text">secure development</span></h2>
+      <p class="section-sub mx-auto" style="margin-bottom:3rem;">One platform. All your repos. Automatic security — from code commit to production.</p>
+    </div>
+    <div class="grid-3">
+      <div class="feature-card reveal delay-100">
+        <span class="icon">🔍</span>
+        <h3>Automated CVE Scanning</h3>
+        <p>Continuously scans all dependencies using Trivy — detecting known vulnerabilities across all languages and package managers.</p>
+      </div>
+      <div class="feature-card reveal delay-200">
+        <span class="icon">🕵️</span>
+        <h3>Secret Detection</h3>
+        <p>Gitleaks integration finds API keys, tokens, passwords, and certificates accidentally committed to your codebase.</p>
+      </div>
+      <div class="feature-card reveal delay-300">
+        <span class="icon">🏢</span>
+        <h3>Multi-Tenant Teams</h3>
+        <p>Full company-level isolation. Each organization manages its own users, repositories, and security posture independently.</p>
+      </div>
+      <div class="feature-card reveal delay-100">
+        <span class="icon">🐙</span>
+        <h3>3 Git Providers</h3>
+        <p>Connect GitHub, GitLab, and Bitbucket repositories using Personal Access Tokens or OAuth — all in one place.</p>
+      </div>
+      <div class="feature-card reveal delay-200">
+        <span class="icon">📊</span>
+        <h3>Security Dashboard</h3>
+        <p>Real-time visibility into your entire security posture. Vulnerability trends, scan history, and team-level reporting.</p>
+      </div>
+      <div class="feature-card reveal delay-300">
+        <span class="icon">🤖</span>
+        <h3>Agent Mode</h3>
+        <p>Run scans on your own infrastructure with our agent. Get 50% cost savings while maintaining full data sovereignty.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="features.html" class="btn btn-outline btn-lg">Explore All Features →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROVIDERS -->
+<section>
+  <div class="container text-center">
+    <div class="reveal">
+      <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:2rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:500;">Supports All Major Git Providers</p>
+      <div class="providers">
+        <div class="provider-item">
+          <div class="provider-icon">🐙</div>
+          <span>GitHub</span>
+        </div>
+        <div class="provider-item">
+          <div class="provider-icon">🦊</div>
+          <span>GitLab</span>
+        </div>
+        <div class="provider-item">
+          <div class="provider-icon">🪣</div>
+          <span>Bitbucket</span>
+        </div>
+        <div class="provider-item">
+          <div class="provider-icon">🛡️</div>
+          <span>Trivy Scanner</span>
+        </div>
+        <div class="provider-item">
+          <div class="provider-icon">🔐</div>
+          <span>Gitleaks</span>
+        </div>
+        <div class="provider-item">
+          <div class="provider-icon">📦</div>
+          <span>All Package Managers</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS (mini) -->
+<section style="background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem;">
+      <div class="section-tag">⚡ Simple Setup</div>
+      <h2 class="section-title">Up and running in <span class="gradient-text">under 5 minutes</span></h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal delay-100">
+        <div class="step-num">1</div>
+        <h3>Register Your Company</h3>
+        <p>Sign up and get a 7-day free trial automatically. No credit card required to start.</p>
+      </div>
+      <div class="step-card reveal delay-200">
+        <div class="step-num">2</div>
+        <h3>Connect Your Repos</h3>
+        <p>Add your GitHub, GitLab, or Bitbucket PAT. We validate it securely and encrypt it at rest.</p>
+      </div>
+      <div class="step-card reveal delay-300">
+        <div class="step-num">3</div>
+        <h3>Scan &amp; Fix</h3>
+        <p>Trigger scans instantly or let them run automatically. Get detailed CVE reports with fix guidance.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="how-it-works.html" class="btn btn-primary btn-lg">Full Walkthrough →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem;">
+      <div class="section-tag">💬 What Teams Say</div>
+      <h2 class="section-title">Built for engineers,<br/><span class="gradient-text">loved by security teams</span></h2>
+    </div>
+    <div class="grid-3">
+      <div class="testimonial-card reveal delay-100">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"We found a critical CVE-2024 vulnerability in a package we'd been using for 8 months. Scannify Hub caught it within the first 24 hours of setup."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">AR</div>
+          <div>
+            <div class="author-name">Alex Rodriguez</div>
+            <div class="author-role">Senior DevOps Engineer</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal delay-200">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"The multi-tenant setup is brilliant. Each of our client projects is completely isolated. We can give different teams access without any cross-contamination."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MK</div>
+          <div>
+            <div class="author-name">Maria Kovacs</div>
+            <div class="author-role">CTO, FinTech Startup</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal delay-300">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Agent mode saved us 50% on our security scanning costs. We run everything on our own servers and still get the beautiful dashboard and reporting."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">JP</div>
+          <div>
+            <div class="author-name">James Park</div>
+            <div class="author-role">Platform Lead, Enterprise</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="section-tag" style="margin-bottom:1.5rem;">🚀 Start Today</div>
+      <h2>Start securing your codebase<br/><span class="gradient-text">before it's too late</span></h2>
+      <p>7-day free trial. No credit card. Full access to all features.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-primary btn-lg">🛡️ Start Free Trial</a>
+        <a href="pricing.html" class="btn btn-ghost btn-lg">View Pricing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="margin-bottom:1rem;display:inline-flex;">
+          <div class="logo-icon">🛡️</div>
+          Scannify Hub
+        </a>
+        <p>Multi-tenant DevSecOps platform for automated repository security scanning. Detect vulnerabilities before they reach production.</p>
+        <div class="social-links" style="margin-top:1.2rem;">
+          <a class="social-link" href="#" title="GitHub">🐙</a>
+          <a class="social-link" href="#" title="LinkedIn">💼</a>
+          <a class="social-link" href="#" title="Twitter">🐦</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="#">Changelog</a></li>
+          <li><a href="#">Roadmap</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Security</h4>
+        <ul>
+          <li><a href="#">CVE Scanning</a></li>
+          <li><a href="#">Secret Detection</a></li>
+          <li><a href="#">Agent Mode</a></li>
+          <li><a href="#">AES-256 Encryption</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Scannify Hub. All rights reserved.</span>
+      <span>Built with ❤️ for secure software development</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

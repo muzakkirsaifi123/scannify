@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Scannify Hub</title>
+  <meta name="description" content="Simple, transparent pricing for teams of all sizes. Choose cloud or agent mode and save 50% with your own scanner." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* ---- PRICING HERO ---- */
+    .pricing-hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59,130,246,0.15), transparent);
+    }
+    .pricing-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; }
+    .pricing-hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; }
+
+    /* ---- SCANNING MODE TOGGLE ---- */
+    .mode-toggle-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .mode-label { font-size: 0.95rem; color: var(--text-muted); font-weight: 500; }
+    .mode-label.active { color: var(--text-primary); }
+    .toggle-switch {
+      position: relative;
+      width: 60px;
+      height: 30px;
+      background: var(--primary);
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 24px; height: 24px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .toggle-switch.agent::after { transform: translateX(30px); }
+    .toggle-switch.agent { background: #8b5cf6; }
+    .savings-badge {
+      background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.75} }
+
+    /* ---- PRICING CARDS ---- */
+    .pricing-section { padding: 0 0 5rem; }
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      align-items: start;
+    }
+    .plan-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .plan-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .plan-card.popular {
+      border-color: var(--primary);
+      box-shadow: 0 0 40px rgba(59,130,246,0.15);
+    }
+    .plan-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gradient-primary);
+      color: #fff;
+      padding: 4px 20px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .plan-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    .plan-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.8rem;
+      min-height: 40px;
+    }
+    .plan-price-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .price-original {
+      font-size: 1rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      display: none;
+      align-self: center;
+    }
+    .price-main {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+      transition: color 0.3s;
+    }
+    .price-main.discounted { color: #8b5cf6; }
+    .price-period { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 4px; }
+    .agent-savings {
+      font-size: 0.82rem;
+      color: #8b5cf6;
+      font-weight: 600;
+      margin-bottom: 1.8rem;
+      min-height: 20px;
+      display: none;
+    }
+    .agent-savings.show { display: block; }
+    .price-original.show { display: block; }
+
+    .plan-features { list-style: none; padding: 0; margin: 0 0 2rem; }
+    .plan-features li {
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .plan-features li:last-child { border: none; }
+    .plan-features li .check { color: #10b981; font-size: 1rem; flex-shrink: 0; }
+    .plan-features li .cross { color: #ef4444; font-size: 1rem; flex-shrink: 0; }
+    .plan-features li .info { color: var(--primary); font-size: 1rem; flex-shrink: 0; }
+
+    .plan-cta {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.85rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .plan-cta.primary {
+      background: var(--gradient-primary);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+    }
+    .plan-cta.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.4); }
+    .plan-cta.outline {
+      border: 2px solid var(--border);
+      color: var(--text-primary);
+      background: transparent;
+    }
+    .plan-cta.outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ---- AGENT MODE EXPLAINER ---- */
+    .agent-explainer {
+      margin-top: 3rem;
+      background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(59,130,246,0.1));
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .agent-explainer .icon-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .agent-explainer h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .agent-explainer p { color: var(--text-muted); margin-bottom: 1rem; }
+    .agent-steps { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .agent-step {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .agent-step .num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ---- COMPARISON TABLE ---- */
+    .comparison-section { padding: 5rem 0; }
+    .comparison-section h2 { text-align: center; font-size: 2rem; margin-bottom: 3rem; }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .comparison-table th {
+      background: var(--bg-card);
+      padding: 1rem 1.2rem;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-bottom: 2px solid var(--border);
+    }
+    .comparison-table th:first-child { text-align: left; }
+    .comparison-table th.highlight { color: var(--primary); border-bottom-color: var(--primary); }
+    .comparison-table td {
+      padding: 0.85rem 1.2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      text-align: center;
+      background: rgba(255,255,255,0.02);
+    }
+    .comparison-table td:first-child { text-align: left; color: var(--text-primary); font-weight: 500; }
+    .comparison-table tr:hover td { background: rgba(59,130,246,0.05); }
+    .comparison-table .section-header td {
+      background: rgba(255,255,255,0.04);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.2rem;
+    }
+    .tick { color: #10b981; }
+    .cross-icon { color: #ef4444; }
+    .partial { color: #f59e0b; font-size: 0.85rem; }
+
+    /* ---- FAQ ---- */
+    .pricing-faq { padding: 5rem 0 4rem; }
+    .pricing-faq h2 { text-align: center; font-size: 2rem; margin-bottom: 3rem; }
+    .pricing-faq .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .pricing-faq .faq-question {
+      padding: 1.2rem 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+      transition: color 0.2s;
+    }
+    .pricing-faq .faq-question:hover { color: var(--primary); }
+    .pricing-faq .faq-icon { font-size: 1.2rem; transition: transform 0.3s; color: var(--primary); }
+    .pricing-faq .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .pricing-faq .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      padding: 0 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .pricing-faq .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 1.2rem; }
+
+    /* ---- ENTERPRISE CTA ---- */
+    .enterprise-cta {
+      background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(59,130,246,0.1));
+      border: 1px solid rgba(16,185,129,0.25);
+      border-radius: 24px;
+      padding: 4rem 3rem;
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+    .enterprise-cta h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .enterprise-cta p { color: var(--text-muted); font-size: 1.05rem; max-width: 550px; margin: 0 auto 2rem; }
+    .enterprise-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .enterprise-feature {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 640px) {
+      .agent-explainer { flex-direction: column; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .comparison-table { font-size: 0.8rem; }
+      .comparison-table th, .comparison-table td { padding: 0.6rem 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =========================================
+     NAVBAR
+========================================== -->
+<nav class="navbar">
+  <div class="container nav-container">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">⬡</span>
+      Scannify<span class="logo-accent">Hub</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="pricing.html" class="active">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-ghost">Login</a>
+      <a href="#" class="btn btn-primary">Start Free Trial</a>
+    </div>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="features.html">Features</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="#" class="btn btn-primary" style="display:inline-block;margin-top:.5rem">Start Free Trial</a></li>
+  </ul>
+</div>
+
+<!-- =========================================
+     HERO
+========================================== -->
+<section class="pricing-hero">
+  <div class="container">
+    <div class="reveal">
+      <span class="badge">Transparent Pricing</span>
+      <h1>Plans that <span class="gradient-text">Scale With You</span></h1>
+      <p>No hidden fees. No per-seat nonsense for most plans. Pay for what you actually use — and save 50% by running your own scanner.</p>
+    </div>
+
+    <!-- Mode Toggle -->
+    <div class="mode-toggle-wrap reveal">
+      <span class="mode-label active" id="cloud-label">☁️ Cloud Mode</span>
+      <div class="toggle-switch" id="mode-toggle" role="switch" aria-checked="false" tabindex="0"></div>
+      <span class="mode-label" id="agent-label">🤖 Agent Mode</span>
+      <span class="savings-badge">Save 50%</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-top:-2rem" class="reveal" id="mode-desc">Cloud Mode: We handle all scanning infrastructure.</p>
+  </div>
+</section>
+
+<!-- =========================================
+     PRICING CARDS
+========================================== -->
+<section class="pricing-section">
+  <div class="container">
+
+    <div class="plans-grid">
+
+      <!-- SMALL TEAM -->
+      <div class="plan-card reveal-left">
+        <div class="plan-name">Small Team</div>
+        <div class="plan-desc">Perfect for startups and small dev teams up to 15 users.</div>
+        <div class="plan-price-wrap">
+          <span class="price-main" data-cloud="99" data-agent="49">$99</span>
+          <span class="price-original" data-orig="99">$99</span>
+          <span class="price-period">/month</span>
+        </div>
+        <div class="agent-savings">🎉 Agent mode — you save $50/mo!</div>
+        <ul class="plan-features">
+          <li><span class="check">✔</span> Up to 15 users</li>
+          <li><span class="check">✔</span> Up to 20 repositories</li>
+          <li><span class="check">✔</span> GitHub, GitLab, Bitbucket</li>
+          <li><span class="check">✔</span> Trivy + Gitleaks scanning</li>
+          <li><span class="check">✔</span> Pipeline vulnerability tracking</li>
+          <li><span class="check">✔</span> Email alerts</li>
+          <li><span class="check">✔</span> 30-day history</li>
+          <li><span class="cross">✖</span> Custom scan schedules</li>
+          <li><span class="cross">✖</span> API access</li>
+          <li><span class="cross">✖</span> SSO / SAML</li>
+        </ul>
+        <a href="#" class="plan-cta outline">Get Started</a>
+      </div>
+
+      <!-- LARGE TEAM (Popular) -->
+      <div class="plan-card popular reveal">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">Large Team</div>
+        <div class="plan-desc">Ideal for growing companies with multiple repos and teams.</div>
+        <div class="plan-price-wrap">
+          <span class="price-main" data-cloud="199" data-agent="99">$199</span>
+          <span class="price-original" data-orig="199">$199</span>
+          <span class="price-period">/month</span>
+        </div>
+        <div class="agent-savings">🎉 Agent mode — you save $100/mo!</div>
+        <ul class="plan-features">
+          <li><span class="check">✔</span> Up to 100 users</li>
+          <li><span class="check">✔</span> Unlimited repositories</li>
+          <li><span class="check">✔</span> GitHub, GitLab, Bitbucket</li>
+          <li><span class="check">✔</span> All scan tools (Trivy, Gitleaks, Semgrep)</li>
+          <li><span class="check">✔</span> Custom scan schedules</li>
+          <li><span class="check">✔</span> Pipeline deep analysis</li>
+          <li><span class="check">✔</span> 90-day history + export</li>
+          <li><span class="check">✔</span> REST API access</li>
+          <li><span class="check">✔</span> Slack + Email alerts</li>
+          <li><span class="cross">✖</span> SSO / SAML</li>
+        </ul>
+        <a href="#" class="plan-cta primary">Start Free Trial</a>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="plan-card reveal-right">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-desc">Full-scale deployment for large organizations with compliance needs.</div>
+        <div class="plan-price-wrap">
+          <span class="price-main" data-cloud="499" data-agent="249">$499</span>
+          <span class="price-original" data-orig="499">$499</span>
+          <span class="price-period">/month</span>
+        </div>
+        <div class="agent-savings">🎉 Agent mode — you save $250/mo!</div>
+        <ul class="plan-features">
+          <li><span class="check">✔</span> Unlimited users</li>
+          <li><span class="check">✔</span> Unlimited repositories</li>
+          <li><span class="check">✔</span> All providers + custom</li>
+          <li><span class="check">✔</span> Full scan toolchain</li>
+          <li><span class="check">✔</span> Custom scan policies</li>
+          <li><span class="check">✔</span> Full audit log + compliance reports</li>
+          <li><span class="check">✔</span> Unlimited history + data export</li>
+          <li><span class="check">✔</span> REST API + Webhooks</li>
+          <li><span class="check">✔</span> SSO / SAML / LDAP</li>
+          <li><span class="check">✔</span> Dedicated support SLA</li>
+        </ul>
+        <a href="#" class="plan-cta outline">Contact Sales</a>
+      </div>
+
+    </div>
+
+    <!-- Agent Mode Explainer -->
+    <div class="agent-explainer reveal" style="margin-top:3rem">
+      <div class="icon-wrap">🤖</div>
+      <div style="flex:1">
+        <h3>What is Agent Mode?</h3>
+        <p>Agent Mode lets you run the Scannify scanner on your own infrastructure. You get a unique API key, deploy our lightweight scanner container, and it reports back to your dashboard — giving you full control over where your code is analyzed and saving 50% on your subscription.</p>
+        <div class="agent-steps">
+          <div class="agent-step"><span class="num">1</span> Toggle Agent Mode in your dashboard</div>
+          <div class="agent-step"><span class="num">2</span> Copy your unique Agent API Key</div>
+          <div class="agent-step"><span class="num">3</span> Run our Docker container on your infra</div>
+          <div class="agent-step"><span class="num">4</span> Results sync to your Scannify dashboard</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================
+     COMPARISON TABLE
+========================================== -->
+<section class="comparison-section">
+  <div class="container">
+    <h2 class="reveal">Full <span class="gradient-text">Feature Comparison</span></h2>
+    <div class="reveal" style="overflow-x:auto">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Small Team</th>
+            <th class="highlight">Large Team</th>
+            <th>Enterprise</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-header"><td colspan="4">Users & Repositories</td></tr>
+          <tr><td>Max Users</td><td>15</td><td>100</td><td>Unlimited</td></tr>
+          <tr><td>Max Repositories</td><td>20</td><td>Unlimited</td><td>Unlimited</td></tr>
+          <tr><td>Teams / Groups</td><td>3</td><td>20</td><td>Unlimited</td></tr>
+
+          <tr class="section-header"><td colspan="4">Source Control Integrations</td></tr>
+          <tr><td>GitHub (PAT + OAuth)</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>GitLab</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Bitbucket</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Self-Hosted GitLab/Gitea</td><td><span class="cross-icon">✖</span></td><td><span class="partial">Add-on</span></td><td><span class="tick">✔</span></td></tr>
+
+          <tr class="section-header"><td colspan="4">Security Scanning</td></tr>
+          <tr><td>Trivy (SBOM + CVE)</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Gitleaks (Secret Detection)</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Semgrep (SAST)</td><td><span class="cross-icon">✖</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Custom Scan Rules</td><td><span class="cross-icon">✖</span></td><td><span class="partial">Basic</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Scheduled Scans</td><td><span class="cross-icon">✖</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>On-Push Trigger</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+
+          <tr class="section-header"><td colspan="4">Infrastructure</td></tr>
+          <tr><td>Cloud Mode</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Agent Mode (50% off)</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Dedicated Cloud Region</td><td><span class="cross-icon">✖</span></td><td><span class="cross-icon">✖</span></td><td><span class="tick">✔</span></td></tr>
+
+          <tr class="section-header"><td colspan="4">Reporting & Analytics</td></tr>
+          <tr><td>Vulnerability Dashboard</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Scan History</td><td>30 days</td><td>90 days</td><td>Unlimited</td></tr>
+          <tr><td>CSV / PDF Export</td><td><span class="cross-icon">✖</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Compliance Reports (SOC2, PCI)</td><td><span class="cross-icon">✖</span></td><td><span class="cross-icon">✖</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Audit Logs</td><td><span class="cross-icon">✖</span></td><td><span class="partial">90 days</span></td><td>Unlimited</td></tr>
+
+          <tr class="section-header"><td colspan="4">Access & Security</td></tr>
+          <tr><td>Role-Based Access Control</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>AES-256 Token Encryption</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>REST API Access</td><td><span class="cross-icon">✖</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Webhooks</td><td><span class="cross-icon">✖</span></td><td><span class="partial">Basic</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>SSO / SAML</td><td><span class="cross-icon">✖</span></td><td><span class="cross-icon">✖</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>IP Allowlisting</td><td><span class="cross-icon">✖</span></td><td><span class="cross-icon">✖</span></td><td><span class="tick">✔</span></td></tr>
+
+          <tr class="section-header"><td colspan="4">Support</td></tr>
+          <tr><td>Community Forums</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Email Support</td><td>48h SLA</td><td>24h SLA</td><td>4h SLA</td></tr>
+          <tr><td>Live Chat</td><td><span class="cross-icon">✖</span></td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+          <tr><td>Dedicated Account Manager</td><td><span class="cross-icon">✖</span></td><td><span class="cross-icon">✖</span></td><td><span class="tick">✔</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     ENTERPRISE CTA
+========================================== -->
+<section class="pricing-section">
+  <div class="container">
+    <div class="enterprise-cta reveal">
+      <h2>Need a <span class="gradient-text">Custom Plan?</span></h2>
+      <p>Large organizations, government agencies, or complex multi-tenancy setups — let's build the right plan together.</p>
+      <div class="enterprise-features">
+        <div class="enterprise-feature">✔ Custom user limits</div>
+        <div class="enterprise-feature">✔ Dedicated infrastructure</div>
+        <div class="enterprise-feature">✔ On-premise deployment</div>
+        <div class="enterprise-feature">✔ Custom SLA agreements</div>
+        <div class="enterprise-feature">✔ Volume discounts</div>
+        <div class="enterprise-feature">✔ White-labeling options</div>
+      </div>
+      <div class="cta-btns">
+        <a href="mailto:hello@scannifyhub.com" class="btn btn-primary">Contact Sales</a>
+        <a href="how-it-works.html" class="btn btn-outline">See How It Works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     FAQ
+========================================== -->
+<section class="pricing-faq">
+  <div class="container" style="max-width:760px">
+    <h2 class="reveal">Frequently Asked <span class="gradient-text">Questions</span></h2>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">Is there a free trial? <span class="faq-icon">+</span></div>
+      <div class="faq-answer">Yes — every plan includes a 14-day free trial with no credit card required. You get full access to all features of your chosen plan during the trial period.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">Can I switch between Cloud and Agent mode? <span class="faq-icon">+</span></div>
+      <div class="faq-answer">Absolutely. You can toggle between Cloud and Agent mode from your dashboard settings at any time. Switching to Agent mode immediately applies the 50% discount on your next billing cycle. Your Agent API key is generated automatically.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">What counts as a "user" in my plan? <span class="faq-icon">+</span></div>
+      <div class="faq-answer">A user is any person with a login to your company workspace in Scannify Hub — including admins, developers, and read-only viewers. Service accounts and automated integrations do not count toward your user limit.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">Can I upgrade or downgrade my plan anytime? <span class="faq-icon">+</span></div>
+      <div class="faq-answer">Yes. Upgrades take effect immediately and are prorated for the current billing period. Downgrades take effect at the start of your next billing cycle. No cancellation fees.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">Is my code or token data stored on your servers? <span class="faq-icon">+</span></div>
+      <div class="faq-answer">In Cloud Mode, scan jobs run on our secure infrastructure and results are stored encrypted. Your source code is never stored — only scan metadata and findings. All access tokens are encrypted with AES-256-GCM before being saved. In Agent Mode, your code never leaves your own infrastructure.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">Do you offer non-profit or open-source discounts? <span class="faq-icon">+</span></div>
+      <div class="faq-answer">Yes — verified non-profits and open-source projects with public repositories can apply for our community program, which includes a significantly reduced rate or free access to the Small Team plan. Contact us with details about your project.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">What payment methods do you accept? <span class="faq-icon">+</span></div>
+      <div class="faq-answer">We accept all major credit and debit cards (Visa, Mastercard, Amex) via Stripe. Enterprise customers can also pay by wire transfer or invoice on net-30 terms.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================
+     FOOTER
+========================================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" style="font-size:1.4rem">
+          <span class="logo-icon">⬡</span>
+          Scannify<span class="logo-accent">Hub</span>
+        </a>
+        <p style="color:var(--text-muted);margin-top:1rem;font-size:0.9rem;line-height:1.6">Enterprise-grade security scanning for modern DevSecOps teams. Multi-tenant, multi-provider, always scanning.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">GH</a>
+          <a href="#" class="social-link">LI</a>
+          <a href="#" class="social-link">TW</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="#">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">GDPR</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Scannify Hub. Built with ❤️ for developers who care about security.</p>
+      <p style="margin-top:0.25rem;font-size:0.8rem;color:var(--text-muted)">AES-256-GCM encrypted · Zero plaintext token storage · SOC2 ready</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+  // ---- PRICING MODE TOGGLE ----
+  const toggleBtn = document.getElementById('mode-toggle');
+  const cloudLabel = document.getElementById('cloud-label');
+  const agentLabel = document.getElementById('agent-label');
+  const modeDesc = document.getElementById('mode-desc');
+  let agentMode = false;
+
+  function updatePricing() {
+    document.querySelectorAll('.price-main').forEach(el => {
+      const cloudPrice = parseInt(el.getAttribute('data-cloud'));
+      const agentPrice = parseInt(el.getAttribute('data-agent'));
+      const price = agentMode ? agentPrice : cloudPrice;
+      el.textContent = '$' + price;
+      el.classList.toggle('discounted', agentMode);
+    });
+    document.querySelectorAll('.price-original').forEach(el => {
+      const orig = el.getAttribute('data-orig');
+      el.textContent = '$' + orig;
+      el.classList.toggle('show', agentMode);
+    });
+    document.querySelectorAll('.agent-savings').forEach(el => {
+      el.classList.toggle('show', agentMode);
+    });
+    cloudLabel.classList.toggle('active', !agentMode);
+    agentLabel.classList.toggle('active', agentMode);
+    modeDesc.textContent = agentMode
+      ? '🤖 Agent Mode: Run our scanner on your own infra and save 50%.'
+      : '☁️ Cloud Mode: We handle all scanning infrastructure.';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    agentMode = !agentMode;
+    toggleBtn.classList.toggle('agent', agentMode);
+    toggleBtn.setAttribute('aria-checked', agentMode);
+    updatePricing();
+  });
+  toggleBtn.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleBtn.click(); }
+  });
+</script>
+</body>
+</html>

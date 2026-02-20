@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works — Scannify Hub</title>
+  <meta name="description" content="Learn how Scannify Hub works — from company registration to automated scanning and vulnerability reporting in minutes." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    .phase-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .phase-num {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem; color: white;
+      flex-shrink: 0;
+    }
+    .arch-diagram {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .arch-layer {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .arch-layer:last-child { margin-bottom: 0; }
+    .arch-layer-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    .arch-items { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .arch-item {
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid;
+    }
+    .flow-arrow {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      margin: 0.25rem 0;
+    }
+    .faq-section { margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">🛡️</div>Scannify Hub</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="how-it-works.html" class="active">How It Works</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="pricing.html" class="btn btn-outline">View Plans</a>
+      <a href="#" class="btn btn-primary">Start Free Trial</a>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="features.html">Features</a>
+  <a href="how-it-works.html">How It Works</a><a href="pricing.html">Pricing</a>
+  <a href="about.html">About</a>
+  <a href="#" class="btn btn-primary" style="text-align:center;">Start Free Trial</a>
+</div>
+
+<div class="page-hero" style="padding-top:7rem;">
+  <div class="container">
+    <div class="section-tag">⚡ Complete Walkthrough</div>
+    <h1>How <span class="gradient-text">Scannify Hub</span> Works</h1>
+    <p>From registration to your first security report in under 5 minutes. Here's exactly what happens at each step.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <!-- PHASE 1 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-bottom:5rem;" class="reveal-left">
+      <div>
+        <div class="phase-header">
+          <div class="phase-num">1</div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Phase One</div>
+            <h2 style="font-size:1.6rem;">Company Registration &amp; Approval</h2>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">A</div>
+            <div class="timeline-content">
+              <h3>Register Your Company</h3>
+              <p>Fill in your company name, select a plan (Small Team / Large Team / Enterprise), and choose trial or paid. Your account status starts as <strong>PENDING_APPROVAL</strong>.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">B</div>
+            <div class="timeline-content">
+              <h3>Owner Review</h3>
+              <p>The platform owner reviews the request from their Owner Dashboard. They can approve, reject, or request more information.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">C</div>
+            <div class="timeline-content">
+              <h3>Trial Auto-Provisioned</h3>
+              <p>On approval, a 7-day free trial starts automatically. Your company status changes to <strong>TRIAL</strong> and you can immediately log in to the dashboard.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem;">Company Status Lifecycle</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <div style="padding:0.75rem;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;display:flex;align-items:center;gap:0.75rem;">
+              <span style="font-size:1rem;">⏳</span>
+              <div><div style="font-size:0.8rem;font-weight:600;">PENDING_APPROVAL</div><div style="font-size:0.72rem;color:var(--text-muted);">Awaiting owner review</div></div>
+            </div>
+            <div style="text-align:center;color:var(--text-muted);font-size:0.8rem;">↓ Owner approves</div>
+            <div style="padding:0.75rem;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;display:flex;align-items:center;gap:0.75rem;">
+              <span style="font-size:1rem;">🔵</span>
+              <div><div style="font-size:0.8rem;font-weight:600;">TRIAL</div><div style="font-size:0.72rem;color:var(--text-muted);">7-day free trial</div></div>
+            </div>
+            <div style="text-align:center;color:var(--text-muted);font-size:0.8rem;">↓ Subscription activated</div>
+            <div style="padding:0.75rem;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;display:flex;align-items:center;gap:0.75rem;">
+              <span style="font-size:1rem;">✅</span>
+              <div><div style="font-size:0.8rem;font-weight:600;">ACTIVE</div><div style="font-size:0.72rem;color:var(--text-muted);">Full access, paid plan</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-bottom:5rem;" class="reveal-right">
+      <div class="reveal-left" style="order:2;">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem;">User Roles &amp; Permissions</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <div style="padding:0.6rem 1rem;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:8px;font-size:0.8rem;display:flex;justify-content:space-between;">
+              <span>👑 COMPANY_ADMIN</span><span style="color:#a78bfa">Full access</span>
+            </div>
+            <div style="padding:0.6rem 1rem;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;font-size:0.8rem;display:flex;justify-content:space-between;">
+              <span>👤 COMPANY_USER</span><span style="color:#60a5fa">Scan &amp; view</span>
+            </div>
+            <div style="padding:0.6rem 1rem;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;font-size:0.8rem;display:flex;justify-content:space-between;">
+              <span>👁️ COMPANY_READONLY</span><span style="color:#34d399">View only</span>
+            </div>
+          </div>
+          <div style="margin-top:1rem;padding:0.75rem;background:rgba(255,255,255,0.02);border-radius:8px;font-size:0.75rem;color:var(--text-muted);">
+            💡 Admins invite team members by email. First-time login shows a personalized welcome celebration.
+          </div>
+        </div>
+      </div>
+      <div style="order:1;">
+        <div class="phase-header">
+          <div class="phase-num">2</div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Phase Two</div>
+            <h2 style="font-size:1.6rem;">Team Setup &amp; User Management</h2>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">A</div>
+            <div class="timeline-content">
+              <h3>Admin Creates Your Team</h3>
+              <p>The Company Admin invites team members by email, assigning each a role: COMPANY_USER for engineers, COMPANY_READONLY for stakeholders.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">B</div>
+            <div class="timeline-content">
+              <h3>First Login Celebration</h3>
+              <p>New users logging in for the first time get a personalized welcome screen showing their name, role, and company — making onboarding delightful.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">C</div>
+            <div class="timeline-content">
+              <h3>Profile &amp; Settings</h3>
+              <p>Users can update their profile picture, bio, position, and notification preferences from the Settings page.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-bottom:5rem;" class="reveal-left">
+      <div>
+        <div class="phase-header">
+          <div class="phase-num">3</div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Phase Three</div>
+            <h2 style="font-size:1.6rem;">Connect Your Repositories</h2>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">A</div>
+            <div class="timeline-content">
+              <h3>Add a Personal Access Token</h3>
+              <p>Go to Connections → add your GitHub, GitLab, or Bitbucket PAT. We validate it against the provider API in real-time.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">B</div>
+            <div class="timeline-content">
+              <h3>Encrypted at Rest</h3>
+              <p>Your token is immediately encrypted with AES-256-GCM before being stored in the database. The plaintext token never touches our storage.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">C</div>
+            <div class="timeline-content">
+              <h3>Multi-Tenant Access</h3>
+              <p>Once an admin connects a provider, all team members within the company automatically access the same repositories — no individual setup needed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem;">Connection Flow</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0.4rem;font-size:0.82rem;">
+            <div style="width:100%;padding:0.6rem 1rem;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;text-align:center;">You enter PAT token</div>
+            <div class="flow-arrow">↓</div>
+            <div style="width:100%;padding:0.6rem 1rem;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:8px;text-align:center;">Validated against GitHub/GitLab API</div>
+            <div class="flow-arrow">↓</div>
+            <div style="width:100%;padding:0.6rem 1rem;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.2);border-radius:8px;text-align:center;">AES-256-GCM encrypted</div>
+            <div class="flow-arrow">↓</div>
+            <div style="width:100%;padding:0.6rem 1rem;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;text-align:center;">Saved to database as <code>enc:iv:tag:cipher</code></div>
+            <div class="flow-arrow">↓</div>
+            <div style="width:100%;padding:0.6rem 1rem;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;text-align:center;color:#34d399;font-weight:600;">✓ Connection ready for all team members</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-bottom:5rem;" class="reveal-right">
+      <div class="reveal-left" style="order:2;">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem;">Scan Job Lifecycle</div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;font-size:0.78rem;">
+            <div style="padding:0.6rem;background:rgba(245,158,11,0.06);border-radius:6px;display:flex;align-items:center;gap:0.5rem;"><span>⏳</span> Job added to BullMQ queue</div>
+            <div style="padding:0.6rem;background:rgba(59,130,246,0.06);border-radius:6px;display:flex;align-items:center;gap:0.5rem;"><span>⟳</span> Worker picks up job, clones repo</div>
+            <div style="padding:0.6rem;background:rgba(59,130,246,0.06);border-radius:6px;display:flex;align-items:center;gap:0.5rem;"><span>🔍</span> Trivy scanner runs CVE detection</div>
+            <div style="padding:0.6rem;background:rgba(59,130,246,0.06);border-radius:6px;display:flex;align-items:center;gap:0.5rem;"><span>🕵️</span> Gitleaks scans for secrets</div>
+            <div style="padding:0.6rem;background:rgba(16,185,129,0.06);border-radius:6px;display:flex;align-items:center;gap:0.5rem;"><span>✓</span> Results saved to database</div>
+            <div style="padding:0.6rem;background:rgba(16,185,129,0.06);border-radius:6px;display:flex;align-items:center;gap:0.5rem;"><span>📊</span> Dashboard updated in real-time</div>
+          </div>
+        </div>
+      </div>
+      <div style="order:1;">
+        <div class="phase-header">
+          <div class="phase-num">4</div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Phase Four</div>
+            <h2 style="font-size:1.6rem;">Trigger Scans &amp; Detect Issues</h2>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">A</div>
+            <div class="timeline-content">
+              <h3>Select Repositories</h3>
+              <p>Browse your connected repositories and select which ones to scan. You can scan one or many at once.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">B</div>
+            <div class="timeline-content">
+              <h3>Async Queue Processing</h3>
+              <p>Scans run via BullMQ background queues — large repos don't block the UI. Watch progress in real-time as the worker processes each repository.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">C</div>
+            <div class="timeline-content">
+              <h3>Instant Results</h3>
+              <p>Get a complete vulnerability report: CVE ID, severity, affected package, installed version, and the exact version that fixes the issue.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 5 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;" class="reveal-left">
+      <div>
+        <div class="phase-header">
+          <div class="phase-num">5</div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Phase Five</div>
+            <h2 style="font-size:1.6rem;">Review, Fix &amp; Track Progress</h2>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">A</div>
+            <div class="timeline-content">
+              <h3>Security Dashboard</h3>
+              <p>The dashboard shows your security posture across all repositories — total vulnerabilities, severity distribution, and trend over time.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">B</div>
+            <div class="timeline-content">
+              <h3>Fix with Guidance</h3>
+              <p>Each vulnerability includes the CVE ID, description, affected file or package, and the minimum version required to resolve it.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">C</div>
+            <div class="timeline-content">
+              <h3>Re-scan &amp; Verify</h3>
+              <p>After applying fixes, trigger a new scan. Track your score improvement and demonstrate security progress to stakeholders.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem;">Sample Vulnerability Report</div>
+          <div style="padding:1rem;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);border-radius:10px;margin-bottom:0.75rem;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;font-weight:700;">CVE-2024-29041</span>
+              <span style="background:rgba(239,68,68,0.15);color:#f87171;padding:0.15rem 0.5rem;border-radius:99px;font-size:0.7rem;font-weight:600;">CRITICAL</span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">express — Improper URL handling allows redirect to external hosts</div>
+            <div style="font-size:0.72rem;display:flex;gap:1rem;">
+              <span style="color:var(--text-muted);">Installed: <span style="color:#f87171;">4.18.2</span></span>
+              <span style="color:var(--text-muted);">Fixed: <span style="color:#34d399;">4.19.2</span></span>
+            </div>
+          </div>
+          <div style="padding:1rem;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.2);border-radius:10px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;font-weight:700;">CVE-2024-38355</span>
+              <span style="background:rgba(245,158,11,0.15);color:#fbbf24;padding:0.15rem 0.5rem;border-radius:99px;font-size:0.7rem;font-weight:600;">HIGH</span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">socket.io — Specially crafted request can cause a server crash</div>
+            <div style="font-size:0.72rem;display:flex;gap:1rem;">
+              <span style="color:var(--text-muted);">Installed: <span style="color:#fbbf24;">4.6.0</span></span>
+              <span style="color:var(--text-muted);">Fixed: <span style="color:#34d399;">4.6.2</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section style="background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem;">
+      <div class="section-tag">🏗️ Architecture</div>
+      <h2 class="section-title">How the platform is <span class="gradient-text">built</span></h2>
+    </div>
+    <div class="arch-diagram reveal">
+      <div class="arch-layer">
+        <div class="arch-layer-title">🌐 Frontend — Next.js 15 App Router</div>
+        <div class="arch-items">
+          <div class="arch-item" style="background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:#60a5fa;">Dashboard</div>
+          <div class="arch-item" style="background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:#60a5fa;">Owner Panel</div>
+          <div class="arch-item" style="background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:#60a5fa;">Admin Panel</div>
+          <div class="arch-item" style="background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:#60a5fa;">Company Portal</div>
+        </div>
+      </div>
+      <div class="flow-arrow" style="font-size:1.5rem;margin:0.5rem 0;">↕</div>
+      <div class="arch-layer">
+        <div class="arch-layer-title">⚙️ API Layer — Next.js Route Handlers</div>
+        <div class="arch-items">
+          <div class="arch-item" style="background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.2);color:#a78bfa;">Auth (NextAuth)</div>
+          <div class="arch-item" style="background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.2);color:#a78bfa;">Connections API</div>
+          <div class="arch-item" style="background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.2);color:#a78bfa;">Scan Trigger</div>
+          <div class="arch-item" style="background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.2);color:#a78bfa;">Subscriptions</div>
+          <div class="arch-item" style="background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.2);color:#a78bfa;">Audit Logs</div>
+        </div>
+      </div>
+      <div class="flow-arrow" style="font-size:1.5rem;margin:0.5rem 0;">↕</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="arch-layer">
+          <div class="arch-layer-title">🗃️ Database — Neon PostgreSQL + Prisma ORM</div>
+          <div class="arch-items">
+            <div class="arch-item" style="background:rgba(6,182,212,0.08);border-color:rgba(6,182,212,0.2);color:#22d3ee;">Users &amp; Companies</div>
+            <div class="arch-item" style="background:rgba(6,182,212,0.08);border-color:rgba(6,182,212,0.2);color:#22d3ee;">Repositories</div>
+            <div class="arch-item" style="background:rgba(6,182,212,0.08);border-color:rgba(6,182,212,0.2);color:#22d3ee;">ScanJobs</div>
+            <div class="arch-item" style="background:rgba(6,182,212,0.08);border-color:rgba(6,182,212,0.2);color:#22d3ee;">Vulnerabilities</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-title">⚡ Queue — BullMQ + Redis</div>
+          <div class="arch-items">
+            <div class="arch-item" style="background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2);color:#f87171;">Scan Queue</div>
+            <div class="arch-item" style="background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2);color:#f87171;">Worker Process</div>
+            <div class="arch-item" style="background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2);color:#f87171;">Trivy + Gitleaks</div>
+          </div>
+        </div>
+      </div>
+      <div class="flow-arrow" style="font-size:1.5rem;margin:0.5rem 0;">↕</div>
+      <div class="arch-layer">
+        <div class="arch-layer-title">🔌 External — Git Providers &amp; Security Tools</div>
+        <div class="arch-items">
+          <div class="arch-item" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);color:#34d399;">🐙 GitHub API</div>
+          <div class="arch-item" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);color:#34d399;">🦊 GitLab API</div>
+          <div class="arch-item" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);color:#34d399;">🪣 Bitbucket API</div>
+          <div class="arch-item" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);color:#34d399;">🛡️ Trivy</div>
+          <div class="arch-item" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);color:#34d399;">🔐 Gitleaks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container" style="max-width:800px;">
+    <div class="text-center reveal" style="margin-bottom:3rem;">
+      <div class="section-tag">❓ FAQ</div>
+      <h2 class="section-title">Common <span class="gradient-text">Questions</span></h2>
+    </div>
+    <div class="faq-section reveal">
+      <div class="faq-item">
+        <div class="faq-question">How long does a scan take? <span class="arrow">+</span></div>
+        <div class="faq-answer">Small repositories typically scan in under 30 seconds. Large monorepos with thousands of files may take 2-5 minutes. Scans run asynchronously so they never block your dashboard.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is my source code ever sent to Scannify's servers? <span class="arrow">+</span></div>
+        <div class="faq-answer">In Cloud mode, the scanning worker clones your repository temporarily to run Trivy and Gitleaks. In Agent mode, scanning happens entirely on your own infrastructure — your code never leaves your network.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How are my GitHub/GitLab tokens protected? <span class="arrow">+</span></div>
+        <div class="faq-answer">Every token is encrypted with AES-256-GCM before being stored in the database. The encryption key is stored separately from the database. Even if the database were compromised, the tokens would be unreadable without the key.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can multiple users share one git connection? <span class="arrow">+</span></div>
+        <div class="faq-answer">Yes. Once an admin connects a GitHub/GitLab/Bitbucket account, all users within the same company can browse and scan those repositories without needing their own tokens.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What happens when my trial expires? <span class="arrow">+</span></div>
+        <div class="faq-answer">Your account moves to EXPIRED status and access is paused. Your data is retained. The platform owner can extend your trial or activate a paid plan at any time.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What programming languages are supported? <span class="arrow">+</span></div>
+        <div class="faq-answer">Trivy supports all major ecosystems: Node.js/npm, Python/pip, Go modules, Java/Maven/Gradle, Ruby/Gem, PHP/Composer, .NET/NuGet, Rust/Cargo, and more.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta-box reveal">
+      <h2>Understand the flow?<br/><span class="gradient-text">Try it yourself.</span></h2>
+      <p>Register your company and get your first security report in under 5 minutes.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-primary btn-lg">🚀 Start Free Trial</a>
+        <a href="features.html" class="btn btn-ghost btn-lg">Explore Features</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo" style="margin-bottom:1rem;display:inline-flex;"><div class="logo-icon">🛡️</div>Scannify Hub</a><p>Multi-tenant DevSecOps platform for automated repository security scanning.</p><div class="social-links" style="margin-top:1.2rem;"><a class="social-link" href="#">🐙</a><a class="social-link" href="#">💼</a><a class="social-link" href="#">🐦</a></div></div>
+      <div class="footer-col"><h4>Product</h4><ul><li><a href="features.html">Features</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+      <div class="footer-col"><h4>Security</h4><ul><li><a href="#">CVE Scanning</a></li><li><a href="#">Secret Detection</a></li><li><a href="#">Agent Mode</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Scannify Hub. All rights reserved.</span><span>Built with ❤️ for secure software development</span></div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
